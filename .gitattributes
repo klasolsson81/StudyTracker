@@ -1,0 +1,16 @@
+* text=auto eol=lf
+
+*.cs           text diff=csharp
+*.csproj       text merge=union
+*.sln          text eol=crlf
+*.slnx         text
+*.json         text
+*.md           text
+*.yml          text
+*.yaml         text
+
+*.png          binary
+*.jpg          binary
+*.gif          binary
+*.ico          binary
+*.pdf          binary
