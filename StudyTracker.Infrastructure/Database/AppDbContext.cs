@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StudyTracker.Domain.Models;
+using StudyTracker.Infrastructure.Identity;
 
 namespace StudyTracker.Infrastructure.Database;
 
-public class AppDbContext : DbContext
+// Ärver IdentityDbContext för att få tabellerna AspNetUsers, AspNetRoles, AspNetUserRoles osv.
+// ApplicationUser är vår egen subklass av IdentityUser.
+public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {

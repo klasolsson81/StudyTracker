@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudyTracker.Application.StudentCRUD.Commands.CreateStudent;
 using StudyTracker.Application.StudentCRUD.Commands.DeleteStudent;
@@ -10,6 +11,7 @@ namespace StudyTracker.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class StudentsController : ControllerBase
 {
     private readonly IMediator _mediator;
