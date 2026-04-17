@@ -1,19 +1,23 @@
+using AutoMapper;
 using MediatR;
+using StudyTracker.Application.DTOs;
 using StudyTracker.Application.Interfaces;
 using StudyTracker.Domain.Models;
 
 namespace StudyTracker.Application.StudySessionCRUD.Commands.CreateStudySession;
 
-public class CreateStudySessionCommandHandler : IRequestHandler<CreateStudySessionCommand, StudySession>
+public class CreateStudySessionCommandHandler : IRequestHandler<CreateStudySessionCommand, StudySessionDto>
 {
     private readonly IStudySessionRepository _repository;
+    private readonly IMapper _mapper;
 
-    public CreateStudySessionCommandHandler(IStudySessionRepository repository)
+    public CreateStudySessionCommandHandler(IStudySessionRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public async Task<StudySession> Handle(CreateStudySessionCommand request, CancellationToken cancellationToken)
+    public async Task<StudySessionDto> Handle(CreateStudySessionCommand request, CancellationToken cancellationToken)
     {
         var session = new StudySession
         {
@@ -26,6 +30,7 @@ public class CreateStudySessionCommandHandler : IRequestHandler<CreateStudySessi
             Notes = request.Notes
         };
 
-        return await _repository.AddAsync(session, cancellationToken);
+        var created = await _repository.AddAsync(session, cancellationToken);
+        return _mapper.Map<StudySessionDto>(created);
     }
 }

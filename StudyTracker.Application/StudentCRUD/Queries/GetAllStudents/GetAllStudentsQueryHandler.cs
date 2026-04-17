@@ -1,20 +1,24 @@
+using AutoMapper;
 using MediatR;
+using StudyTracker.Application.DTOs;
 using StudyTracker.Application.Interfaces;
-using StudyTracker.Domain.Models;
 
 namespace StudyTracker.Application.StudentCRUD.Queries.GetAllStudents;
 
-public class GetAllStudentsQueryHandler : IRequestHandler<GetAllStudentsQuery, IEnumerable<Student>>
+public class GetAllStudentsQueryHandler : IRequestHandler<GetAllStudentsQuery, IEnumerable<StudentDto>>
 {
     private readonly IStudentRepository _repository;
+    private readonly IMapper _mapper;
 
-    public GetAllStudentsQueryHandler(IStudentRepository repository)
+    public GetAllStudentsQueryHandler(IStudentRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<Student>> Handle(GetAllStudentsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<StudentDto>> Handle(GetAllStudentsQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetAllAsync(cancellationToken);
+        var students = await _repository.GetAllAsync(cancellationToken);
+        return _mapper.Map<IEnumerable<StudentDto>>(students);
     }
 }
