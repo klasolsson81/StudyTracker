@@ -5,6 +5,7 @@ using Scalar.AspNetCore;
 using StudyTracker.API.ExceptionHandlers;
 using StudyTracker.Application;
 using StudyTracker.Infrastructure;
+using StudyTracker.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,12 @@ builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
+
+// Kör identity-seed vid uppstart — skapar rollerna Admin/User + en default admin-användare.
+using (var scope = app.Services.CreateScope())
+{
+    await IdentitySeeder.SeedAsync(scope.ServiceProvider);
+}
 
 app.UseExceptionHandler();
 

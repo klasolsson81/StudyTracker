@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StudyTracker.Application.Common.Constants;
 using StudyTracker.Application.StudySessionCRUD.Commands.CreateStudySession;
 using StudyTracker.Application.StudySessionCRUD.Commands.DeleteStudySession;
 using StudyTracker.Application.StudySessionCRUD.Commands.UpdateStudySession;
@@ -36,6 +37,7 @@ public class StudySessionsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = Roles.Admin)]
     public async Task<IActionResult> Create([FromBody] CreateStudySessionCommand command, CancellationToken cancellationToken)
     {
         var created = await _mediator.Send(command, cancellationToken);
@@ -43,6 +45,7 @@ public class StudySessionsController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = Roles.Admin)]
     public async Task<IActionResult> Update(int id, [FromBody] UpdateStudySessionCommand command, CancellationToken cancellationToken)
     {
         if (id != command.Id) return BadRequest("Id i URL matchar inte body.");
@@ -52,6 +55,7 @@ public class StudySessionsController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = Roles.Admin)]
     public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
     {
         var wasDeleted = await _mediator.Send(new DeleteStudySessionCommand(id), cancellationToken);
