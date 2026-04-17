@@ -21,10 +21,13 @@ Elever loggar studiepass med motivation före/efter — för att synliggöra hur
 ## &nbsp;Kör programmet
 
 ```bash
-# Skapa databasen (SQL Server Express)
+# 1. Sätt JWT-secret i user-secrets (committas aldrig till repo)
+dotnet user-secrets set "Jwt:Secret" "<minst-32-tecken-lång-slumpad-sträng>" --project StudyTracker.API
+
+# 2. Skapa databasen (SQL Server Express)
 dotnet ef database update --project StudyTracker.Infrastructure --startup-project StudyTracker.API
 
-# Starta API:et
+# 3. Starta API:et
 dotnet run --project StudyTracker.API
 ```
 
@@ -32,6 +35,8 @@ dotnet run --project StudyTracker.API
 > Kräver **.NET 10 SDK** och **SQL Server Express**. Anpassa connection string i `StudyTracker.API/appsettings.Development.json` efter din lokala instans.
 >
 > Vid uppstart skapas rollerna `Admin` / `User` samt en seedad admin-användare: `admin` / `Admin123!` (ändras via `Seed:AdminPassword` i konfigurationen).
+>
+> API:et vägrar starta om `Jwt:Secret` saknas, är kvar på placeholder-värdet, eller är kortare än 32 bytes — fail fast hellre än att köra med svag nyckel.
 
 <br/>
 
@@ -255,7 +260,8 @@ classDiagram
 | POST | `/api/studysessions` | **Admin** | Skapa studiepass |
 | PUT | `/api/studysessions/{id}` | **Admin** | Uppdatera studiepass |
 | DELETE | `/api/studysessions/{id}` | **Admin** | Radera studiepass |
-| GET | `/scalar/v1` | — | Interaktiv API-dokumentation (Scalar) |
+| GET | `/health` | — | Health-check (DbContext-readiness) |
+| GET | `/scalar/v1` | — | Interaktiv API-dokumentation (Scalar, med Authorize-knapp för JWT) |
 
 <br/>
 
