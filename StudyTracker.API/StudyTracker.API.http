@@ -1,0 +1,7 @@
+@StudyTracker.API_HostAddress = http://localhost:5075
+
+### Hämta alla studenter (kräver inloggning)
+GET {{StudyTracker.API_HostAddress}}/api/students
+Accept: application/json
+
+###
