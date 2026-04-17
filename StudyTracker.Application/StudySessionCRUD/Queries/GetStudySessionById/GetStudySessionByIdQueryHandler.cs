@@ -1,20 +1,24 @@
+using AutoMapper;
 using MediatR;
+using StudyTracker.Application.DTOs;
 using StudyTracker.Application.Interfaces;
-using StudyTracker.Domain.Models;
 
 namespace StudyTracker.Application.StudySessionCRUD.Queries.GetStudySessionById;
 
-public class GetStudySessionByIdQueryHandler : IRequestHandler<GetStudySessionByIdQuery, StudySession?>
+public class GetStudySessionByIdQueryHandler : IRequestHandler<GetStudySessionByIdQuery, StudySessionDto?>
 {
     private readonly IStudySessionRepository _repository;
+    private readonly IMapper _mapper;
 
-    public GetStudySessionByIdQueryHandler(IStudySessionRepository repository)
+    public GetStudySessionByIdQueryHandler(IStudySessionRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public async Task<StudySession?> Handle(GetStudySessionByIdQuery request, CancellationToken cancellationToken)
+    public async Task<StudySessionDto?> Handle(GetStudySessionByIdQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetByIdAsync(request.Id, cancellationToken);
+        var session = await _repository.GetByIdAsync(request.Id, cancellationToken);
+        return session is null ? null : _mapper.Map<StudySessionDto>(session);
     }
 }

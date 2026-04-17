@@ -1,5 +1,5 @@
 using MediatR;
-using StudyTracker.Domain.Models;
+using StudyTracker.Application.DTOs;
 
 namespace StudyTracker.Application.StudySessionCRUD.Commands.CreateStudySession;
 
@@ -10,4 +10,4 @@ public record CreateStudySessionCommand(
     int DurationMinutes,
     int MotivationBefore,
     int MotivationAfter,
-    string? Notes) : IRequest<StudySession>;
+    string? Notes) : IRequest<StudySessionDto>;

@@ -1,6 +1,6 @@
 using MediatR;
-using StudyTracker.Domain.Models;
+using StudyTracker.Application.DTOs;
 
 namespace StudyTracker.Application.StudentCRUD.Commands.CreateStudent;
 
-public record CreateStudentCommand(string Name, string Email, string Class) : IRequest<Student>;
+public record CreateStudentCommand(string Name, string Email, string Class) : IRequest<StudentDto>;

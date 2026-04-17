@@ -1,6 +1,6 @@
 using MediatR;
-using StudyTracker.Domain.Models;
+using StudyTracker.Application.DTOs;
 
 namespace StudyTracker.Application.StudySessionCRUD.Queries.GetStudySessionById;
 
-public record GetStudySessionByIdQuery(int Id) : IRequest<StudySession?>;
+public record GetStudySessionByIdQuery(int Id) : IRequest<StudySessionDto?>;

@@ -1,6 +1,6 @@
 using MediatR;
-using StudyTracker.Domain.Models;
+using StudyTracker.Application.DTOs;
 
 namespace StudyTracker.Application.StudySessionCRUD.Queries.GetAllStudySessions;
 
-public record GetAllStudySessionsQuery() : IRequest<IEnumerable<StudySession>>;
+public record GetAllStudySessionsQuery() : IRequest<IEnumerable<StudySessionDto>>;
