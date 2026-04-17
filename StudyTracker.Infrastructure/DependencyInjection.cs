@@ -14,8 +14,10 @@ public static class DependencyInjection
     // så att API inte behöver känna till EF Core-detaljer.
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        var connectionString = configuration.GetConnectionString("DefaultConnection")
+            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' saknas i konfigurationen.");
+
+        services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
         services.AddScoped<IStudentRepository, StudentRepo>();
         services.AddScoped<IStudySessionRepository, StudySessionRepo>();
