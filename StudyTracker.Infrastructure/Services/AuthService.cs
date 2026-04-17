@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using StudyTracker.Application.Common.Constants;
 using StudyTracker.Application.DTOs.Auth;
 using StudyTracker.Application.Interfaces;
 using StudyTracker.Infrastructure.Identity;
@@ -33,6 +34,9 @@ public class AuthService : IAuthService
 
         var result = await _userManager.CreateAsync(user, password);
         if (!result.Succeeded) return null;
+
+        // Nya användare får default-rollen User. Admin sätts bara via seed eller manuellt i DB.
+        await _userManager.AddToRoleAsync(user, Roles.User);
 
         return await BuildAuthResponseAsync(user);
     }
