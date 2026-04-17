@@ -1,3 +1,4 @@
+using Scalar.AspNetCore;
 using StudyTracker.Application;
 using StudyTracker.Infrastructure;
 
@@ -15,7 +16,9 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    // OpenAPI-dokumentet samt Scalar-UI på /scalar/v1
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
