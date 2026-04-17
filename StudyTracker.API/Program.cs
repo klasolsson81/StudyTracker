@@ -1,3 +1,4 @@
+using StudyTracker.Application;
 using StudyTracker.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,8 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
-// Registrerar EF Core + repositories från Infrastructure-lagret.
-builder.Services.AddInfrastructure(builder.Configuration);
+// Application-lagret (MediatR + handlers) samt Infrastructure (EF Core + repositories).
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
