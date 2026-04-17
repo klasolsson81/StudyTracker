@@ -275,7 +275,7 @@ MediatR gjorde att varje endpoint bara blev ett par rader i controllern. Pipelin
 <div align="center">
 
 <a href="https://github.com/klasolsson81">
-<img src="https://github.com/klasolsson81.png" alt="Klas Olsson" width="170" style="border-radius: 50%" />
+<img src="assets/profile-circle.svg" alt="Klas Olsson" width="170" />
 </a>
 
 ### Klas Olsson

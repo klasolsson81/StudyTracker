@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" viewBox="0 0 170 170">
+  <foreignObject width="170" height="170">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="width:170px;height:170px;position:relative;">
+      <style>
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .ring {
+          position: absolute;
+          top: 5px; left: 5px;
+          width: 160px; height: 160px;
+          border-radius: 50%;
+          background: conic-gradient(#7aa2f7, #bb9af7, #e0af68, #7aa2f7);
+          animation: spin 4s linear infinite;
+        }
+        .ring-mask {
+          position: absolute;
+          top: 9px; left: 9px;
+          width: 152px; height: 152px;
+          border-radius: 50%;
+          background: #1a1b27;
+        }
+        .avatar {
+          position: absolute;
+          top: 13px; left: 13px;
+          width: 144px; height: 144px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      </style>
+      <div class="ring"></div>
+      <div class="ring-mask"></div>
+      <img class="avatar" src="https://wsrv.nl/?url=avatars.githubusercontent.com/u/229617477%3Fv%3D4&amp;w=150&amp;h=150&amp;fit=cover&amp;mask=circle" />
+    </div>
+  </foreignObject>
+</svg>
